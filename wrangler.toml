@@ -1,0 +1,11 @@
+name = "gcc-dashboard-api"
+main = "workers/api.js"
+compatibility_date = "2026-05-01"
+
+# 环境变量（ENCRYPTION_KEY 通过 wrangler secret put 设置，不写在这里）
+[vars]
+
+# KV namespace binding
+[[kv_namespaces]]
+binding = "AUTH_KV"
+id = "3c9d038a262a485498795f0e34e71d9b"
