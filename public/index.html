@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCC Sales Dashboard - 2026年5月</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #1a73e8;
+      --success: #34a853;
+      --warning: #fbbc04;
+      --danger: #ea4335;
+      --bg: #f0f2f5;
+      --card: #ffffff;
+      --text: #1f2937;
+      --text-secondary: #6b7280;
+      --border: #e5e7eb;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .header h1 { font-size: 20px; font-weight: 600; }
+    .header .user-info { font-size: 13px; opacity: 0.9; }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .tab {
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab:hover { color: var(--primary); }
+    .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      gap: 12px;
+      padding: 12px 24px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .filter-group { display: flex; align-items: center; gap: 6px; }
+    .filter-group label { font-size: 12px; color: var(--text-secondary); }
+    .filter-group select {
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    /* Content */
+    .content { padding: 20px 24px; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* KPI Cards */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .kpi-card {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .kpi-card .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+    .kpi-card .value { font-size: 24px; font-weight: 700; }
+    .kpi-card .sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+    .kpi-card .rate { font-size: 14px; font-weight: 600; margin-top: 2px; }
+    .rate-good { color: var(--success); }
+    .rate-warn { color: var(--warning); }
+    .rate-bad { color: var(--danger); }
+
+    /* Charts */
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .chart-card {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .chart-card h3 { font-size: 14px; margin-bottom: 12px; color: var(--text); }
+    .chart-container { width: 100%; height: 300px; }
+
+    /* Table */
+    .table-card {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+    .table-card h3 { font-size: 14px; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f9fafb; font-weight: 600; color: var(--text-secondary); font-size: 12px; }
+    tr:hover { background: #f3f4f6; }
+
+    /* Progress bar */
+    .progress-bar { background: #e5e7eb; border-radius: 4px; height: 8px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+
+    /* Loading */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60vh;
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+    .loading .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .chart-row { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Full width chart */
+    .chart-full { grid-column: 1 / -1; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🏆 GCC Sales Dashboard - 2026年5月</h1>
+    <div class="user-info" id="userInfo">加载中...</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-page="overview">📊 总览</div>
+    <div class="tab" data-page="groups">👥 小组明细</div>
+    <div class="tab" data-page="personal">🧑 个人明细</div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>大组:</label>
+      <select id="filterBigGroup">
+        <option value="all">全部</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>小组:</label>
+      <select id="filterGroup">
+        <option value="all">全部</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>渠道:</label>
+      <select id="filterChannel">
+        <option value="all">全部</option>
+        <option value="市场">市场(MKT)</option>
+        <option value="转介绍">转介绍(REF)</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>岗位:</label>
+      <select id="filterPosition">
+        <option value="all">全部</option>
+        <option value="TL">TL</option>
+        <option value="CC">CC</option>
+        <option value="player coach">Player Coach</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="content">
+    <div id="loadingIndicator" class="loading">
+      <div class="spinner"></div>
+      <span>正在加载数据...</span>
+    </div>
+
+    <!-- Page 1: Overview -->
+    <div class="page" id="page-overview">
+      <div class="kpi-row" id="kpiCards"></div>
+      <div class="chart-row">
+        <div class="chart-card chart-full">
+          <h3>📈 每日累计业绩趋势</h3>
+          <div class="chart-container" id="chartTrend"></div>
+        </div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-card">
+          <h3>🏢 大组业绩对比</h3>
+          <div class="chart-container" id="chartBigGroup"></div>
+        </div>
+        <div class="chart-card">
+          <h3>📊 渠道业绩占比</h3>
+          <div class="chart-container" id="chartChannel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 2: Group Details -->
+    <div class="page" id="page-groups">
+      <div class="kpi-row" id="groupKpiCards"></div>
+      <div class="chart-row">
+        <div class="chart-card chart-full">
+          <h3>🏆 小组达成率排名</h3>
+          <div class="chart-container" id="chartGroupRank"></div>
+        </div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-card chart-full">
+          <h3>🔄 小组漏斗对比</h3>
+          <div class="chart-container" id="chartFunnel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 3: Personal Details -->
+    <div class="page" id="page-personal">
+      <div class="table-card">
+        <h3>🧑 个人业绩排行</h3>
+        <table id="personalTable">
+          <thead>
+            <tr>
+              <th>排名</th>
+              <th>姓名</th>
+              <th>小组</th>
+              <th>岗位</th>
+              <th>目标业绩</th>
+              <th>实际业绩</th>
+              <th>达成率</th>
+              <th>单量</th>
+              <th>REF业绩</th>
+              <th>注册</th>
+              <th>约课</th>
+              <th>出席</th>
+            </tr>
+          </thead>
+          <tbody id="personalTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ========== Global State ==========
+let dashboardData = null;
+let currentUser = null;
+let currentPage = 'overview';
+
+// ========== API Configuration ==========
+// 本地调试模式：直接加载JSON；线上模式：通过Worker API
+const IS_LOCAL = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+const API_BASE = IS_LOCAL ? '' : '/api';
+
+// ========== Data Loading ==========
+async function loadData() {
+  try {
+    if (IS_LOCAL) {
+      // 本地模式：直接加载JSON
+      const resp = await fetch('data/dashboard_data.json');
+      dashboardData = await resp.json();
+      currentUser = { email: 'admin@local', role: 'admin', name: '本地调试' };
+    } else {
+      // 线上模式：通过Worker API（自动带Cloudflare Access JWT）
+      const resp = await fetch(API_BASE + '/data', { credentials: 'include' });
+      if (!resp.ok) {
+        const err = await resp.json();
+        throw new Error(err.error || '加载失败');
+      }
+      const result = await resp.json();
+      dashboardData = result.data;
+      currentUser = result.user;
+    }
+
+    document.getElementById('userInfo').textContent = 
+      `${currentUser.name} (${currentUser.role}) | 数据更新: ${dashboardData.meta?.generatedAt?.split('T')[0] || '-'}`;
+
+    initFilters();
+    renderAll();
+    document.getElementById('loadingIndicator').style.display = 'none';
+    document.getElementById('page-overview').classList.add('active');
+  } catch (e) {
+    document.getElementById('loadingIndicator').innerHTML = 
+      `<span style="color:var(--danger)">❌ ${e.message}</span>`;
+  }
+}
+
+// ========== Filters ==========
+function initFilters() {
+  const bigGroupSelect = document.getElementById('filterBigGroup');
+  const groupSelect = document.getElementById('filterGroup');
+
+  if (dashboardData.bigGroups) {
+    Object.keys(dashboardData.bigGroups).forEach(bg => {
+      bigGroupSelect.add(new Option(bg, bg));
+    });
+  }
+  if (dashboardData.groups) {
+    Object.keys(dashboardData.groups).forEach(g => {
+      groupSelect.add(new Option(g, g));
+    });
+  }
+}
+
+function getFilteredCC() {
+  if (!dashboardData.ccDetails) return [];
+  const bigGroup = document.getElementById('filterBigGroup').value;
+  const group = document.getElementById('filterGroup').value;
+  const position = document.getElementById('filterPosition').value;
+
+  return Object.values(dashboardData.ccDetails).filter(cc => {
+    if (bigGroup !== 'all' && cc.bigGroup !== bigGroup) return false;
+    if (group !== 'all' && cc.group !== group) return false;
+    if (position !== 'all' && cc.position !== position) return false;
+    return true;
+  });
+}
+
+// ========== Rendering ==========
+function renderAll() {
+  renderKPICards();
+  renderTrendChart();
+  renderBigGroupChart();
+  renderChannelChart();
+  renderGroupRank();
+  renderFunnelChart();
+  renderPersonalTable();
+}
+
+function getRateClass(rate) {
+  if (rate >= 80) return 'rate-good';
+  if (rate >= 50) return 'rate-warn';
+  return 'rate-bad';
+}
+
+function formatNum(n) {
+  if (n === undefined || n === null) return '-';
+  return n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+}
+
+function renderKPICards() {
+  const o = dashboardData.overall;
+  if (!o) return;
+  const revenueRate = o.targetRevenue ? (o.actualRevenue / o.targetRevenue * 100) : 0;
+  const orderRate = o.targetOrders ? (o.actualOrders / o.targetOrders * 100) : 0;
+  const refRate = o.targetRef ? (o.actualRef / o.targetRef * 100) : 0;
+
+  document.getElementById('kpiCards').innerHTML = `
+    <div class="kpi-card">
+      <div class="label">总业绩 (USD)</div>
+      <div class="value">$${formatNum(o.actualRevenue)}</div>
+      <div class="sub">目标: $${formatNum(o.targetRevenue)}</div>
+      <div class="rate ${getRateClass(revenueRate)}">${revenueRate.toFixed(1)}%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">总单量</div>
+      <div class="value">${o.actualOrders}</div>
+      <div class="sub">目标: ${o.targetOrders}</div>
+      <div class="rate ${getRateClass(orderRate)}">${orderRate.toFixed(1)}%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">REF业绩 (转介绍)</div>
+      <div class="value">$${formatNum(o.actualRef)}</div>
+      <div class="sub">目标: $${formatNum(o.targetRef)}</div>
+      <div class="rate ${getRateClass(refRate)}">${refRate.toFixed(1)}%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">MKT业绩 (市场)</div>
+      <div class="value">$${formatNum(o.actualMkt)}</div>
+      <div class="sub">目标: $${formatNum(o.targetMkt)}</div>
+      <div class="rate ${getRateClass(o.targetMkt ? o.actualMkt/o.targetMkt*100 : 0)}">${o.targetMkt ? (o.actualMkt/o.targetMkt*100).toFixed(1) : 0}%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">5月注册量</div>
+      <div class="value">${formatNum(o.registerCount)}</div>
+      <div class="sub">约课: ${formatNum(o.bookCount)} | 出席: ${formatNum(o.attendCount)}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">大单有效学员</div>
+      <div class="value">${formatNum(o.paidStudents)}</div>
+      <div class="sub">CC人数: ${o.ccCount}</div>
+    </div>
+  `;
+}
+
+function renderTrendChart() {
+  const el = document.getElementById('chartTrend');
+  if (!el || !dashboardData.dailyTrend) return;
+  const chart = echarts.init(el);
+
+  const dates = Object.keys(dashboardData.dailyTrend).sort();
+  let cumTotal = 0, cumMkt = 0, cumRef = 0;
+  const totalLine = [], mktLine = [], refLine = [];
+
+  dates.forEach(d => {
+    const day = dashboardData.dailyTrend[d];
+    cumTotal += day.total;
+    cumMkt += day.mkt;
+    cumRef += day.ref;
+    totalLine.push(cumTotal);
+    mktLine.push(cumMkt);
+    refLine.push(cumRef);
+  });
+
+  // 目标线（线性）
+  const targetTotal = dashboardData.overall.targetRevenue;
+  const daysInMay = 31;
+  const targetLine = dates.map((_, i) => {
+    const dayNum = parseInt(dates[i].split('-')[2]);
+    return (targetTotal / daysInMay) * dayNum;
+  });
+
+  chart.setOption({
+    tooltip: { trigger: 'axis', formatter: params => {
+      let s = params[0].axisValue + '<br/>';
+      params.forEach(p => { s += `${p.marker} ${p.seriesName}: $${formatNum(p.value)}<br/>`; });
+      return s;
+    }},
+    legend: { data: ['Total累计', 'MKT累计', 'REF累计', '目标进度'] },
+    grid: { left: 60, right: 20, top: 40, bottom: 30 },
+    xAxis: { type: 'category', data: dates.map(d => d.slice(5)) },
+    yAxis: { type: 'value', axisLabel: { formatter: v => '$' + (v/1000).toFixed(0) + 'k' } },
+    series: [
+      { name: 'Total累计', type: 'line', data: totalLine, smooth: true, lineStyle: { width: 3 } },
+      { name: 'MKT累计', type: 'line', data: mktLine, smooth: true },
+      { name: 'REF累计', type: 'line', data: refLine, smooth: true },
+      { name: '目标进度', type: 'line', data: targetLine, lineStyle: { type: 'dashed', color: '#999' }, itemStyle: { color: '#999' } }
+    ]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderBigGroupChart() {
+  const el = document.getElementById('chartBigGroup');
+  if (!el || !dashboardData.bigGroups) return;
+  const chart = echarts.init(el);
+
+  const groups = Object.values(dashboardData.bigGroups);
+  const names = groups.map(g => g.name);
+
+  chart.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['实际业绩', '目标业绩'] },
+    grid: { left: 60, right: 20, top: 40, bottom: 30 },
+    xAxis: { type: 'category', data: names },
+    yAxis: { type: 'value', axisLabel: { formatter: v => '$' + (v/1000).toFixed(0) + 'k' } },
+    series: [
+      { name: '实际业绩', type: 'bar', data: groups.map(g => g.totals.actualRevenue), itemStyle: { color: '#1a73e8' } },
+      { name: '目标业绩', type: 'bar', data: groups.map(g => g.totals.targetRevenue), itemStyle: { color: '#e8eaed' } }
+    ]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderChannelChart() {
+  const el = document.getElementById('chartChannel');
+  if (!el || !dashboardData.overall) return;
+  const chart = echarts.init(el);
+  const o = dashboardData.overall;
+
+  chart.setOption({
+    tooltip: { trigger: 'item', formatter: '{b}: ${c} ({d}%)' },
+    series: [{
+      type: 'pie',
+      radius: ['40%', '70%'],
+      label: { formatter: '{b}\n${c}' },
+      data: [
+        { value: Math.round(o.actualMkt), name: '市场(MKT)', itemStyle: { color: '#1a73e8' } },
+        { value: Math.round(o.actualRef), name: '转介绍(REF)', itemStyle: { color: '#34a853' } }
+      ]
+    }]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderGroupRank() {
+  const el = document.getElementById('chartGroupRank');
+  if (!el || !dashboardData.groups) return;
+  const chart = echarts.init(el);
+
+  const groups = Object.values(dashboardData.groups)
+    .map(g => ({
+      name: g.name,
+      rate: g.totals.targetRevenue ? (g.totals.actualRevenue / g.totals.targetRevenue * 100) : 0,
+      actual: g.totals.actualRevenue,
+      target: g.totals.targetRevenue
+    }))
+    .sort((a, b) => b.rate - a.rate);
+
+  chart.setOption({
+    tooltip: { trigger: 'axis', formatter: params => {
+      const p = params[0];
+      return `${p.name}<br/>达成率: ${p.value.toFixed(1)}%<br/>实际: $${formatNum(groups[p.dataIndex].actual)}<br/>目标: $${formatNum(groups[p.dataIndex].target)}`;
+    }},
+    grid: { left: 120, right: 40, top: 10, bottom: 10 },
+    xAxis: { type: 'value', axisLabel: { formatter: '{value}%' }, max: 100 },
+    yAxis: { type: 'category', data: groups.map(g => g.name).reverse() },
+    series: [{
+      type: 'bar',
+      data: groups.map(g => g.rate).reverse(),
+      itemStyle: {
+        color: params => {
+          const v = params.value;
+          if (v >= 80) return '#34a853';
+          if (v >= 50) return '#fbbc04';
+          return '#ea4335';
+        }
+      },
+      label: { show: true, position: 'right', formatter: '{c}%' }
+    }]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderFunnelChart() {
+  const el = document.getElementById('chartFunnel');
+  if (!el || !dashboardData.groups) return;
+  const chart = echarts.init(el);
+
+  const groups = Object.values(dashboardData.groups);
+  const names = groups.map(g => g.name);
+
+  chart.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['注册', '约课', '出席', '付费学员'] },
+    grid: { left: 60, right: 20, top: 40, bottom: 40 },
+    xAxis: { type: 'category', data: names, axisLabel: { rotate: 30, fontSize: 11 } },
+    yAxis: { type: 'value' },
+    series: [
+      { name: '注册', type: 'bar', data: groups.map(g => g.totals.registerCount) },
+      { name: '约课', type: 'bar', data: groups.map(g => g.totals.bookCount) },
+      { name: '出席', type: 'bar', data: groups.map(g => g.totals.attendCount) },
+      { name: '付费学员', type: 'bar', data: groups.map(g => g.totals.paidStudents) }
+    ]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderPersonalTable() {
+  const tbody = document.getElementById('personalTableBody');
+  if (!tbody || !dashboardData.ccDetails) return;
+
+  const ccList = getFilteredCC()
+    .map(cc => ({
+      ...cc,
+      rate: cc.targets.financialTotal ? (cc.actual.totalRevenue / cc.targets.financialTotal * 100) : 0
+    }))
+    .sort((a, b) => b.actual.totalRevenue - a.actual.totalRevenue);
+
+  tbody.innerHTML = ccList.map((cc, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td><strong>${cc.name}</strong></td>
+      <td>${cc.group}</td>
+      <td>${cc.position}</td>
+      <td>$${formatNum(cc.targets.financialTotal)}</td>
+      <td><strong>$${formatNum(cc.actual.totalRevenue)}</strong></td>
+      <td><span class="${getRateClass(cc.rate)}">${cc.rate.toFixed(1)}%</span></td>
+      <td>${cc.actual.orderCount} / ${cc.targets.orderCount}</td>
+      <td>$${formatNum(cc.actual.refRevenue)}</td>
+      <td>${cc.actual.registerCount}</td>
+      <td>${cc.actual.bookCount}</td>
+      <td>${cc.actual.attendCount}</td>
+    </tr>
+  `).join('');
+}
+
+// ========== Tab Switching ==========
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const pageId = 'page-' + tab.dataset.page;
+    document.getElementById(pageId).classList.add('active');
+    currentPage = tab.dataset.page;
+  });
+});
+
+// Filter change → re-render
+document.querySelectorAll('.filters select').forEach(sel => {
+  sel.addEventListener('change', renderAll);
+});
+
+// ========== Init ==========
+loadData();
+</script>
+</body>
+</html>
