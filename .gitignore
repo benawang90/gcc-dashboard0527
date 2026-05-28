@@ -1,0 +1,23 @@
+# 数据源文件（敏感数据，不上传）
+*.xlsx
+*.csv
+数据源/
+
+# 明文数据（仅本地调试用，不上传）
+public/data/dashboard_data.json
+
+# Node
+node_modules/
+package-lock.json
+
+# 临时文件
+read_data.js
+read_data2.js
+read_data.py
+
+# 本地调试
+.env
+.dev.vars
+
+# Excel 临时文件
+~$*
