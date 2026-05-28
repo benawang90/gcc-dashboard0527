@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "gcc-sales-dashboard",
   "version": "1.0.0",
@@ -17,23 +16,3 @@
     "wrangler": "^4.93.1"
   }
 }
-=======
-{
-  "name": "gcc-sales-dashboard",
-  "version": "1.0.0",
-  "description": "GCC Sales Team May 2026 Performance Dashboard",
-  "scripts": {
-    "process": "node scripts/process_data.js",
-    "auth": "node scripts/generate_auth.js",
-    "serve": "node serve.js",
-    "deploy": "npx wrangler deploy",
-    "kv:upload": "npx wrangler kv key put --binding=AUTH_KV \"auth_config\" --path=auth_config.json"
-  },
-  "dependencies": {
-    "xlsx": "^0.18.5"
-  },
-  "devDependencies": {
-    "wrangler": "^4.93.1"
-  }
-}
->>>>>>> c40b43a1c86da05335c1414a1794a7499cd579fb
