@@ -1,0 +1,478 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-05-21T17:00:47.271Z",
+  "description": "GCC Sales Dashboard 权限配置 - 邮箱为 Cloudflare Access 登录标识",
+  "users": {
+    "1226203754@qq.com": {
+      "role": "admin",
+      "scope": "all",
+      "name": "管理员"
+    },
+    "iris@yourcompany.com": {
+      "role": "group_leader",
+      "scope": "Iris",
+      "name": "Iris"
+    },
+    "assaf@yourcompany.com": {
+      "role": "group_leader",
+      "scope": "JOCC-assaf03",
+      "name": "JOCC-assaf03"
+    },
+    "jocc-baha@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC20小组",
+      "name": "Nawasreh Baha",
+      "crmAccount": "JOCC-Baha",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-abdalahdais@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-abdalahdais",
+      "name": "Abdallah DAIS",
+      "crmAccount": "JOCC-abdalahdais",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-sondosshtnawi@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-sondosshtnawi",
+      "name": "shatnawi Sondos",
+      "crmAccount": "JOCC-sondosshtnawi",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-alalifarah@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-alalifarah",
+      "name": "ALALI FARAH",
+      "crmAccount": "JOCC-alalifarah",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-saidwardh@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-saidwardh",
+      "name": "wardeh Said",
+      "crmAccount": "JOCC-saidwardh",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-gharaibeh@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-Gharaibeh",
+      "name": "gharaibeh Yazan",
+      "crmAccount": "JOCC-Gharaibeh",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-abdelfattahheba@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-abdelfattahheba",
+      "name": "ABDELFATTAH HEBA",
+      "crmAccount": "JOCC-abdelfattahheba",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-ahmadmousa@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-ahmadmousa",
+      "name": "Ahmad Mousa",
+      "crmAccount": "JOCC-ahmadmousa",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-hammamattallah@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC22小组",
+      "name": "Hammam Attallah",
+      "crmAccount": "JOCC-hammamattallah",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-majdmegdadi@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-MajdMegdadi",
+      "name": "Majd MEGDADI",
+      "crmAccount": "JOCC-MajdMegdadi",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-mirnaalzoubi@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-MirnaAlzoubi",
+      "name": "alzoubi Mirna",
+      "crmAccount": "JOCC-MirnaAlzoubi",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-rahafhajeer@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-rahafhajeer",
+      "name": "hajeer Rahaf",
+      "crmAccount": "JOCC-rahafhajeer",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-abdelqaderbader@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-Abdelqaderbader",
+      "name": "BADER ABEDALQADER",
+      "crmAccount": "JOCC-Abdelqaderbader",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-aseelalhourani@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-aseelalhourani",
+      "name": "Alhourani Aseel",
+      "crmAccount": "JOCC-aseelalhourani",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-safwanalzyud@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-safwanalzyud",
+      "name": "Alzyod Safwan",
+      "crmAccount": "JOCC-safwanalzyud",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-ahmedqarareh01@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-ahmedqarareh01",
+      "name": "Ahmed Mohammad Ouda Al-Qarareh",
+      "crmAccount": "JOCC-ahmedqarareh01",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-mohammadalzeer@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-mohammadalzeer",
+      "name": "Mohammad",
+      "crmAccount": "JOCC-mohammadalzeer",
+      "group": "ME-JOCC22小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-shalabi@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC24小组",
+      "name": "Shalabi Noor",
+      "crmAccount": "JOCC-Shalabi",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "51banimortada@yourcompany.com": {
+      "role": "cc",
+      "scope": "51banimortada",
+      "name": "Naseem BANI",
+      "crmAccount": "51banimortada",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-azizkhateeb@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-AzizKhateeb",
+      "name": "Abdallaziz ALKHATEEB",
+      "crmAccount": "JOCC-AzizKhateeb",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-laithsuwan@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-laithsuwan",
+      "name": "suwan Laith",
+      "crmAccount": "JOCC-laithsuwan",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-hadeelhanandeh@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-HadeelHanandeh",
+      "name": "Hanandeh Hadeel",
+      "crmAccount": "JOCC-HadeelHanandeh",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-nimernaema@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-NimerNaema",
+      "name": "nimer Naeema",
+      "crmAccount": "JOCC-NimerNaema",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-tasneemabusmk@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-tasneemabusmk",
+      "name": "abusamak Tasneem",
+      "crmAccount": "JOCC-tasneemabusmk",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-yazanrawashde@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-yazanrawashde",
+      "name": "Alrawashdeh Yazan",
+      "crmAccount": "JOCC-yazanrawashde",
+      "group": "ME-JOCC24小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-ahmadzoubi@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC27小组",
+      "name": "Ahmad ALZUBI",
+      "crmAccount": "JOCC-ahmadzoubi",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-yusranasr@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-Yusranasr",
+      "name": "Naser Yusra",
+      "crmAccount": "JOCC-Yusranasr",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-obadaaljabari@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-Obadaaljabari",
+      "name": "aljaabari Obada",
+      "crmAccount": "JOCC-Obadaaljabari",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-danianabaheen@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-Danianabaheen",
+      "name": "alnabaheen Dania",
+      "crmAccount": "JOCC-Danianabaheen",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-hamzahsawalha@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-hamzahsawalha",
+      "name": "Sawalha Hamzah",
+      "crmAccount": "JOCC-hamzahsawalha",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-husseinalghazawi@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-Husseinalghazawi",
+      "name": "Alghazzawi Hussein",
+      "crmAccount": "JOCC-Husseinalghazawi",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-samerabuyounis@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-samerabuyounis",
+      "name": "AbuYounis Samer",
+      "crmAccount": "JOCC-samerabuyounis",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-zeyadaldajeh@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-zeyadaldajeh",
+      "name": "ALDA AJEH ZEYAD",
+      "crmAccount": "JOCC-zeyadaldajeh",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-yacoub01@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-yacoub01",
+      "name": "Yacoub Almohtasib",
+      "crmAccount": "JOCC-yacoub01",
+      "group": "ME-JOCC27小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-abdallahamzeh@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC35小组",
+      "name": "Abdallah HAMZEH",
+      "crmAccount": "JOCC-abdallahamzeh",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-linaaljilani@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-linaaljilani",
+      "name": "Lina Fahmi Jilani",
+      "crmAccount": "JOCC-linaaljilani",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-ahmadshahin@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-ahmadshahin",
+      "name": "Shahin Ahmad",
+      "crmAccount": "JOCC-ahmadshahin",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-aburimalinda@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-Aburimalinda",
+      "name": "ABU RIMA LINDA",
+      "crmAccount": "JOCC-Aburimalinda",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-alhujandeya@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-alhujandeya",
+      "name": "ALHUJRAN DIYA",
+      "crmAccount": "JOCC-alhujandeya",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-sara03@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-sara03",
+      "name": "Sarah Nael Mohammad Btoush",
+      "crmAccount": "JOCC-sara03",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-rama@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-rama",
+      "name": "Rama Shraim",
+      "crmAccount": "JOCC-rama",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-abdalrahman@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-abdalrahman",
+      "name": "Abdalrahman Mohammad Hussien Ahmad",
+      "crmAccount": "JOCC-abdalrahman",
+      "group": "ME-JOCC35小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-ahmadradwan@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-AhmadRadwan",
+      "name": "RADWAN Ahmad",
+      "crmAccount": "JOCC-AhmadRadwan",
+      "group": "ME-JOCC54小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-jafaralazzam@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-jafaralazzam",
+      "name": "Jafar Alazzam",
+      "crmAccount": "JOCC-jafaralazzam",
+      "group": "ME-JOCC54小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-rawand01@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC54小组",
+      "name": "Rawand AHMAD",
+      "crmAccount": "JOCC-Rawand01",
+      "group": "ME-JOCC54小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-najirazan@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-najirazan",
+      "name": "NAJI RAZAN",
+      "crmAccount": "JOCC-najirazan",
+      "group": "ME-JOCC54小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-odehrogaya@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-odehrogaya",
+      "name": "ODEH ROGAYAH",
+      "crmAccount": "JOCC-odehrogaya",
+      "group": "ME-JOCC54小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-aseelbasheer@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-aseelbasheer",
+      "name": "Basheer Aseel",
+      "crmAccount": "JOCC-aseelbasheer",
+      "group": "ME-JOCC54小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-saadnawaf@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-saadnawaf",
+      "name": "Saad Nawaf",
+      "crmAccount": "JOCC-saadnawaf",
+      "group": "ME-JOCC54小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-naghamaburajab@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-naghamaburajab",
+      "name": "Nagham",
+      "crmAccount": "JOCC-naghamaburajab",
+      "group": "ME-JOCC75小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-maheromari@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC75小组",
+      "name": "Maher Alomari",
+      "crmAccount": "JOCC-maheromari",
+      "group": "ME-JOCC75小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-qaisasaad@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-qaisasaad",
+      "name": "Asaad Qais",
+      "crmAccount": "JOCC-qaisasaad",
+      "group": "ME-JOCC75小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-leenshehadeh@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-leenshehadeh",
+      "name": "Shehadeh LEEN",
+      "crmAccount": "JOCC-leenshehadeh",
+      "group": "ME-JOCC75小组",
+      "bigGroup": "JOCC-assaf03"
+    },
+    "jocc-doaazreqat@yourcompany.com": {
+      "role": "tl",
+      "scope": "ME-JOCC85小组",
+      "name": "a ZREQAT",
+      "crmAccount": "JOCC-doaazreqat",
+      "group": "ME-JOCC85小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-hanoon@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-hanoon",
+      "name": "Hanen Ayman Almajali",
+      "crmAccount": "JOCC-hanoon",
+      "group": "ME-JOCC85小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-mohammed03@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-mohammed03",
+      "name": "Mohammad Aldabbagh",
+      "crmAccount": "JOCC-mohammed03",
+      "group": "ME-JOCC85小组",
+      "bigGroup": "Iris"
+    },
+    "jocc-zaidabunaji@yourcompany.com": {
+      "role": "cc",
+      "scope": "JOCC-zaidabunaji",
+      "name": "zaid abunaji",
+      "crmAccount": "JOCC-zaidabunaji",
+      "group": "ME-JOCC20小组",
+      "bigGroup": "Iris"
+    }
+  }
+}

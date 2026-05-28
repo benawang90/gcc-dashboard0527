@@ -1,0 +1,19 @@
+name = "gcc-dashboard0527"
+main = "workers/api.js"
+compatibility_date = "2026-05-01"
+
+# 让 Worker 能 import HTML 文件
+rules = [
+  { type = "Text", globs = ["**/*.html"] }
+]
+
+[vars]
+
+# KV namespaces
+[[kv_namespaces]]
+binding = "AUTH_KV"
+id = "3c9d038a262a485498795f0e34e71d9b"
+
+[[kv_namespaces]]
+binding = "DASHBOARD_DATA"
+id = "7447024bead04b36b2317c0a1abe3671"
