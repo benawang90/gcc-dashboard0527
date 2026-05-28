@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name = "gcc-dashboard0527"
 main = "workers/api.js"
 compatibility_date = "2026-05-01"
@@ -17,3 +18,16 @@ id = "3c9d038a262a485498795f0e34e71d9b"
 [[kv_namespaces]]
 binding = "DASHBOARD_DATA"
 id = "7447024bead04b36b2317c0a1abe3671"
+=======
+name = "gcc-dashboard-api"
+main = "workers/api.js"
+compatibility_date = "2026-05-01"
+
+# 环境变量（ENCRYPTION_KEY 通过 wrangler secret put 设置，不写在这里）
+[vars]
+
+# KV namespace binding
+[[kv_namespaces]]
+binding = "AUTH_KV"
+id = "3c9d038a262a485498795f0e34e71d9b"
+>>>>>>> c40b43a1c86da05335c1414a1794a7499cd579fb
